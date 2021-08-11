@@ -9,4 +9,4 @@ class FeedPerson(models.Model):
   name = models.CharField(max_length=255, blank=True, null=True)
 
   def __str__(self):
-    return f"{self.firstname} {self.lastname}"
+    return self.name

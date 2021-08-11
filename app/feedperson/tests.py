@@ -10,5 +10,4 @@ class FeedPersonTestCase(TestCase):
 
   def test_str_value(self):
     feed_person = FeedPerson.objects.get(id=1)
-    expected = f"{feed_person.firstname} {feed_person.lastname}"
-    self.assertEqual(expected, str(feed_person))
+    self.assertEqual(feed_person.name, str(feed_person))
