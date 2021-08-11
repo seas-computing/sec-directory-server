@@ -6,7 +6,7 @@ from .models import FeedPerson
 class FeedPersonTestCase(TestCase):
 
   def setUp(self):
-    feed_person = FeedPerson.objects.create(eppn="00000000", firstname="John", lastname="Harvard", location="Pierce Hall 101", name="John Harvard")
+    feed_person = FeedPerson.objects.create(eppn="1a2b3c456def7890", firstname="John", lastname="Harvard", location="Pierce Hall 101", name="John Harvard")
 
   def test_str_value(self):
     feed_person = FeedPerson.objects.get(id=1)
