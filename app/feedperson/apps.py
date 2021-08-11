@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FeedpeopleConfig(AppConfig):
+class FeedpersonConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'feedpeople'
+    name = 'feedperson'
