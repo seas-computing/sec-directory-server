@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'feedperson',
+    'rollup',
     'person',
     'django.contrib.admin',
     'django.contrib.auth',
