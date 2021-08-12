@@ -5,7 +5,8 @@ from .models import Person
 # Create your tests here.
 class PersonTestCase(TestCase):
 
-  def setUp(self):
+  @classmethod
+  def setUpTestData(cls):
     person = Person.objects.create(firstname="Jane", lastname="Harvard", location="SEC Room 322", name="Jane Harvard")
 
   def test_str_value(self):
