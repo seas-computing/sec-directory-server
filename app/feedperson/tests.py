@@ -5,7 +5,8 @@ from .models import FeedPerson
 # Create your tests here.
 class FeedPersonTestCase(TestCase):
 
-  def setUp(self):
+  @classmethod
+  def setUpTestData(cls):
     feed_person = FeedPerson.objects.create(eppn="1a2b3c456def7890", firstname="John", lastname="Harvard", location="Pierce Hall 101", name="John Harvard")
 
   def test_str_value(self):
