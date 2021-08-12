@@ -5,7 +5,8 @@ from .models import Place
 # Create your tests here.
 class PlaceTestCase(TestCase):
 
-  def setUp(self):
+  @classmethod
+  def setUpTestData(cls):
     place = Place.objects.create(name="SEC", location="150 Western Ave, Allston, MA 02134")
   
   def test_str_value(self):
