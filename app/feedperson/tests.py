@@ -24,11 +24,3 @@ class FeedPersonTestCase(TestCase):
     non_western_ave_people = filter(lambda person: "Western Ave" not in person.location, FeedPerson.objects.all())
     self.assertTrue(len(list(western_ave_people)) > 0)
     self.assertEqual(len(list(non_western_ave_people)), 0)
-
-  def test_load_feed_people_returns_expected_keys(self):
-    expected_keys = ['eppn', 'firstname', 'lastname', 'name', 'location']
-    actual_keys = FeedPerson.objects.all().values()[0].keys()
-    for key in expected_keys:
-      self.assertTrue(key in actual_keys)
-    # The actual keys includes a primary key
-    self.assertEqual(len(actual_keys), len(expected_keys) + 1)
