@@ -29,4 +29,3 @@ def load_feed_people():
   
   load_rollup()
 
-  return HttpResponse("Successfully imported FeedPerson data.")
