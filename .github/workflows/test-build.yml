@@ -1,4 +1,5 @@
-name: Testing
+name: Test and Build
+# Runs on all pushes and PR's
 on:
   push:
     branches:
@@ -6,23 +7,27 @@ on:
   pull_request:
 jobs:
   test:
-    name: Run full test suite
+    name: Run test suite
     runs-on: ubuntu-latest
+    # Run our tests on the alpine container
     container: python:3.8.0-alpine
     defaults:
       run:
         working-directory: app
     env: 
+      # Django specific environment
       SQL_ENGINE: django.db.backends.postgresql
       SQL_DATABASE: directory
       SQL_USER: developer
       SQL_PASSWORD: password
       SQL_HOST: postgres
       SQL_PORT: 5432
+    # Separately, run a postgres container to test against
     services:
       postgres:
         image: postgres
         env: 
+          # POSTGRES specific environment (must match Django SQL_* values above)
           POSTGRES_DB: directory
           POSTGRES_USER: developer
           POSTGRES_PASSWORD: password
@@ -33,6 +38,7 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v2
+        # Pip and system dependencies needed inside the container
       - name: Install Dependencies
         run: |
           apk update
@@ -45,6 +51,7 @@ jobs:
         run: python manage.py test
   build:
     name: Build Docker Container
+    # Only build container when code has been merged into main
     if: github.event_name == 'push' && github.ref == 'main'
     needs: test
     runs-on: ubuntu-latest
