@@ -43,3 +43,25 @@ jobs:
         run: python manage.py migrate
       - name: Django Tests 
         run: python manage.py test
+  build:
+    name: Build Docker Container
+    # if: github.event_name == 'push' && github.ref == 'main'
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v2
+      - name: login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Publish stable image
+        uses: docker/build-push-action@v2
+        with:
+          file: Dockerfile.prod
+          push: true
+          tags: ghcr.io/${{ github.repository }}:stable
