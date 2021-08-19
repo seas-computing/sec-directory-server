@@ -9,6 +9,9 @@ jobs:
     name: Run full test suite
     runs-on: ubuntu-latest
     container: python:3.8.0-alpine
+    defaults:
+      run:
+        working-directory: app
     env: 
       SQL_ENGINE: django.db.backends.postgresql
       SQL_DATABASE: directory
@@ -35,8 +38,8 @@ jobs:
           apk update
           apk add postgresql-dev gcc python3-dev musl-dev
           python -m pip install --upgrade pip
-          pip install -r app/requirements.txt
+          pip install -r requirements.txt
       - name: Run database migrations
-        run: python app/manage.py migrate
+        run: python manage.py migrate
       - name: Django Tests 
-        run: python app/manage.py test
+        run: python manage.py test
