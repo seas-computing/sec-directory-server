@@ -45,7 +45,7 @@ jobs:
         run: python manage.py test
   build:
     name: Build Docker Container
-    # if: github.event_name == 'push' && github.ref == 'main'
+    if: github.event_name == 'push' && github.ref == 'main'
     needs: test
     runs-on: ubuntu-latest
     steps:
