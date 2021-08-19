@@ -20,7 +20,7 @@ jobs:
       postgres:
         image: postgres
         env: 
-          POSTGRES_DATABASE: directory
+          POSTGRES_DB: directory
           POSTGRES_USER: developer
           POSTGRES_PASSWORD: password
         options: >-
