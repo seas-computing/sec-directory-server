@@ -52,7 +52,7 @@ jobs:
   build:
     name: Build Docker Container
     # Only build container when code has been merged into main
-    if: github.event_name == 'push' && github.ref == 'main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     steps:
