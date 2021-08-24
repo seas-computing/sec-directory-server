@@ -1,0 +1,72 @@
+name: Test and Build
+# Runs on all pushes and PR's
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+jobs:
+  test:
+    name: Run test suite
+    runs-on: ubuntu-latest
+    # Run our tests on the alpine container
+    container: python:3.8.0-alpine
+    defaults:
+      run:
+        working-directory: app
+    env: 
+      # Django specific environment
+      SQL_ENGINE: django.db.backends.postgresql
+      SQL_DATABASE: directory
+      SQL_USER: developer
+      SQL_PASSWORD: password
+      SQL_HOST: postgres
+      SQL_PORT: 5432
+    # Separately, run a postgres container to test against
+    services:
+      postgres:
+        image: postgres
+        env: 
+          # POSTGRES specific environment (must match Django SQL_* values above)
+          POSTGRES_DB: directory
+          POSTGRES_USER: developer
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+        # Pip and system dependencies needed inside the container
+      - name: Install Dependencies
+        run: |
+          apk update
+          apk add postgresql-dev gcc python3-dev musl-dev
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run database migrations
+        run: python manage.py migrate
+      - name: Django Tests 
+        run: python manage.py test
+  build:
+    name: Build Docker Container
+    # Only build container when code has been merged into main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Publish stable image
+        uses: docker/build-push-action@v2
+        with:
+          context: app
+          file: ./app/Dockerfile.prod
+          push: true
+          tags: ghcr.io/${{ github.repository }}:stable
