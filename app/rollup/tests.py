@@ -4,17 +4,19 @@ from rollup.models import Rollup
 from place.models import Place
 from person.models import Person
 from feedperson.models import FeedPerson
+from algoliasearch_django.decorators import disable_auto_indexing
 
 # Create your tests here.
 class RollupTestCase(TestCase):
 
   @classmethod
   def setUpTestData(cls):
-    # Existing Rollup objects that should be deleted after calling load_rollup
-    Rollup.objects.create(name="John Smith", location="SEC Room 210")
-    Rollup.objects.create(name="Jane Smith", location="SEC Room 142")
-    Rollup.objects.create(name="SEC", location="150 Western Ave, Allston, MA 02134")
-    Rollup.objects.create(name="114 Western Ave", location="114 Western Ave, Allston, MA 02134")
+    with disable_auto_indexing():
+      # Existing Rollup objects that should be deleted after calling load_rollup
+      Rollup.objects.create(name="John Smith", location="SEC Room 210")
+      Rollup.objects.create(name="Jane Smith", location="SEC Room 142")
+      Rollup.objects.create(name="SEC", location="150 Western Ave, Allston, MA 02134")
+      Rollup.objects.create(name="114 Western Ave", location="114 Western Ave, Allston, MA 02134")
     # Data that should be converted to Rollup objects after calling load_rollup
     place = Place.objects.create(name="Soldier's Field Park Children's Center", location="114 Western Ave, Allston, MA 02134")
     person = Person.objects.create(firstname="Jane", lastname="Harvard", location="SEC Room 322", name="Jane Harvard")
