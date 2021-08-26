@@ -22,6 +22,9 @@ jobs:
       SQL_PASSWORD: password
       SQL_HOST: postgres
       SQL_PORT: 5432
+      ALGOLIA_API_KEY: ${{ secrets.ALGOLIA_API_KEY }}
+      ALGOLIA_INDEX: ${{ secrets.ALGOLIA_INDEX }}
+      ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
     # Separately, run a postgres container to test against
     services:
       postgres:

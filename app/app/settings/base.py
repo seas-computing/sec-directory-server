@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'place',
     'rollup',
     'person',
+    'algoliasearch_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,3 +132,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Algolia Search Setup
+# https://www.algolia.com/doc/framework-integration/django/setup/?client=python#setup
+ALGOLIA = {
+    'APPLICATION_ID': environ.get("ALGOLIA_APP_ID"),
+    'API_KEY': environ.get("ALGOLIA_API_KEY")
+}
