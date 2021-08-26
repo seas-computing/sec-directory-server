@@ -5,7 +5,7 @@ from person.models import Person
 from feedperson.models import FeedPerson
 from algoliasearch.search_client import SearchClient
 
-# Function to force a clear out of the index before reindexing.
+# Forcees a clear-out of the index before reindexing.
 # Prevents duplicate records being created if updates are pushed from two different DBs.
 # This could happen if the production machine / DB are rebuilt.
 def clear_index():
@@ -27,6 +27,3 @@ def load_rollup():
         name = object.name,
         location = object.location
       )
-
-
-
