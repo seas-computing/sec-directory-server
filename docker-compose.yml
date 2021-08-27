@@ -3,9 +3,8 @@ version: '3.7'
 services: 
   web:
     build: 
-      context: ./app
-      dockerfile: Dockerfile.dev
-    command: python manage.py runserver 0.0.0.0:8000
+      context: .
+      target: development
     volumes:
       - ./app/:/usr/src/app/
     ports:

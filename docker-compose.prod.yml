@@ -4,8 +4,8 @@ services:
   web:
     build:
       context: ./app
-      dockerfile: Dockerfile.prod
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+      dockerfile: Dockerfile
+    command: ["--production"]
     volumes:
       - static_volume:/home/app/web/app/static
       - media_volume:/home/app/web/app/media
