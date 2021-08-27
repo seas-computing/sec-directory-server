@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# default to development mode
+PRODUCTION=false
+
+for arg; do
+  if [[ $arg == "--production" ]]; then
+    PRODUCTION=true
+  fi
+done
+
 if [ "$DATABASE" = "postgres" ]
 then
     echo "Waiting for postgres..."
@@ -13,6 +22,11 @@ fi
 
 python manage.py migrate
 python manage.py createsuperuser --noinput
-python manage.py runserver 0.0.0.0:8000
-
-exec "$@"
+if [[ $PRODUCTION == true ]]; then
+  echo "Starting App in production mode..."
+  python manage.py collectstatic --no-input --clear
+  gunicorn app.wsgi:application --bind 0.0.0.0:8000
+else
+  echo "Starting app in development mode..."
+  python manage.py runserver 0.0.0.0:8000
+fi
