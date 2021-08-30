@@ -15,7 +15,7 @@ RUN apk update \
 
 # Update pip and copy over reuirements 
 RUN pip install --upgrade pip
-COPY ./app/requirements.txt .
+COPY ./requirements.txt .
 
 
 # DEVELOPMENT
@@ -52,12 +52,10 @@ FROM python:3.8.0-alpine as production
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# create the app user, with group app and homedir of /home/app
-RUN adduser -D app
-
-# create the appropriate directories
 ENV APP_HOME=/home/app/web
-RUN mkdir -p $APP_HOME
+
+# create the app user, with group app and homedir of /home/app
+RUN adduser -D app && mkdir -p $APP_HOME/app/static && mkdir $APP_HOME/app/media && chown -R app:app $APP_HOME
 WORKDIR $APP_HOME
 
 # We only need the C postgres library, since psychopg2 wraps around that
@@ -68,7 +66,7 @@ RUN apk update && apk add libpq
 COPY --from=builder /install /usr/local
 
 # copy project
-COPY --chown=app:app ./app .
+COPY --chown=app:app . .
 
 # change to the app user
 USER app
