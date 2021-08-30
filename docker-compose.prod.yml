@@ -34,7 +34,7 @@ services:
       - static_volume_prod:/home/app/web/app/static
       - media_volume_prod:/home/app/web/app/media
     ports:
-      - 1337:80
+      - 127.0.0.1:1337:80
     depends_on:
       - web
 
