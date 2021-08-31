@@ -16,8 +16,6 @@ services:
     environment:
       DEBUG: 0
       DJANGO_SETTINGS_MODULE: app.settings.production
-    depends_on:
-      - db
 
   db_prod:
     image: postgres:12.0-alpine
@@ -35,8 +33,6 @@ services:
       - media_volume_prod:/home/app/web/app/media
     ports:
       - 127.0.0.1:1337:80
-    depends_on:
-      - web
 
 volumes:
   postgres_data_prod:
