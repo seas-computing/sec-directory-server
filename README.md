@@ -25,7 +25,13 @@ For development, there is a `docker-compose.yml` file in the root of the project
 
 For Algolia, you'll need to provide the `ALGOLIA_APP_ID` that owns the index defined in `ALGOLIA_INDEX`, and provide an `ALGOLIA_API_KEY` that has permission to `addObject`, `deleteObject` and `deleteIndex` for that same index. For security reasons, it's best [to create a "Secured API key"][api-key] scoped to the index.
 
-With the `.env` file in place, you can run `docker-compose up` to bring up the app and database containers. From there, you can access the Django admin interface in the browser at localhost:8000/admin and log in with the credentials defined in the `DJANGO_SUPERUSER_USERNAME` and `DJANGO_SUPERUSER_PASSWORD` variables.
+With the `.env` file in place, run:
+
+```sh
+$ docker-compose up
+```
+
+Which should bring up the app and database containers. From there, you can access the Django admin interface in the browser at http://localhost:8000/admin and log in with the credentials defined in the `DJANGO_SUPERUSER_USERNAME` and `DJANGO_SUPERUSER_PASSWORD` variables.
 
 To access Django's CLI tool, you can run:
 
