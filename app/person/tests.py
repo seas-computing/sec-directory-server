@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
+from algoliasearch_django.decorators import disable_auto_indexing
 
 from .models import Person
 
