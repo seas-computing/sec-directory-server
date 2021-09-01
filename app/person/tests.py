@@ -55,7 +55,8 @@ class PersonTestCase(TestCase):
 
     c = Client()
     c.login(username=test_username, password=test_password)
-    response = c.get('/admin/person/person/actions/UpdateScreens/', follow=True)
+    with disable_auto_indexing():
+      response = c.get('/admin/person/person/actions/UpdateScreens/', follow=True)
 
     self.assertEqual(response.status_code, 200)
     self.assertTrue(success_message in response.content.decode('utf-8'))
