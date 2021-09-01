@@ -47,6 +47,9 @@ $ docker-compose exec web python manage.py test
 
 # Run database migrations
 $ docker-compose exec web python manage.py migrate
+
+# Run the load_feed_people function to populate the Algolia index defined in ALGOLIA_INDEX
+$ docker-compose exec web python manage.py shell --command "from feedperson.utils import load_feed_people; load_feed_people()"
 ```
 
 ### Production
