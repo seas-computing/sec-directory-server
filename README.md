@@ -36,7 +36,7 @@ Which should bring up the app and database containers. From there, you can acces
 To access Django's CLI tool, you can run:
 
 ```sh
-$docker-compose exec web python manage.py
+$ docker-compose exec web python manage.py
 ```
 
 That will list all of the available commands, but for development the most important ones will be:
