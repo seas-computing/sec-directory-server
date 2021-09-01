@@ -56,7 +56,7 @@ $ docker-compose exec web python manage.py shell --command "from feedperson.util
 
 There is also a `docker-compose.prod.yml` file that simulates launching the app in production mode behind an nginx proxy. This can be useful for testing, though for our real production deployment we'll be using AWS Elastic Container Service, Relational Database Service, and Elastic Load Balancer.
 
-To run in production mode, run `docker-compose --file docker-compose.yml up`, then visit localhost:1337/admin in the browser
+To run in production mode, run `docker-compose --file docker-compose.prod.yml up`, then visit localhost:1337/admin in the browser
 
 [client]: https://github.com/seas-computing/sec-directory-client
 [api-key]: https://www.algolia.com/doc/guides/security/api-keys/#secured-api-keys
