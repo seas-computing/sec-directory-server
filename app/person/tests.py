@@ -9,6 +9,7 @@ test_email = 'test@test.com'
 test_password = 'TesterPassword'
 update_screens_button_label = 'Update screens'
 success_message = 'Successfully updated screens with revised person and place data.'
+c = Client()
 
 # Create your tests here.
 class PersonTestCase(TestCase):
@@ -16,6 +17,8 @@ class PersonTestCase(TestCase):
   @classmethod
   def setUpTestData(cls):
     person = Person.objects.create(firstname="Jane", lastname="Harvard", location="SEC Room 322", name="Jane Harvard")
+    User.objects.create_superuser(test_username, test_email, test_password)
+    c.login(username=test_username, password=test_password)
 
   def test_str_value(self):
     person = Person.objects.get(id=1)
@@ -42,20 +45,12 @@ class PersonTestCase(TestCase):
     self.assertEqual(label, 'Full name')
   
   def test_update_screens_button_renders(self):
-    User.objects.create_superuser(test_username, test_email, test_password)
-
-    c = Client()
-    c.login(username=test_username, password=test_password)
     response = c.get('/admin/person/person/')
   
     self.assertEqual(response.status_code, 200)
     self.assertTrue(update_screens_button_label in response.content.decode('utf-8'))
 
   def test_click_update_screens_button_result(self):
-    User.objects.create_superuser(test_username, test_email, test_password)
-
-    c = Client()
-    c.login(username=test_username, password=test_password)
     with disable_auto_indexing():
       response = c.get('/admin/person/person/actions/UpdateScreens/', follow=True)
 
