@@ -12,6 +12,8 @@ class PersonAdmin(DjangoObjectActions, admin.ModelAdmin):
     self.message_user(request, 'Successfully updated screens with revised person and place data.', level=messages.SUCCESS, fail_silently=False)
   
   UpdateScreens.label = 'Update screens'
+
+  UpdateScreens.short_description = 'Manually refresh the screens with the most recent data.'
         
   changelist_actions = ('UpdateScreens', )
 
