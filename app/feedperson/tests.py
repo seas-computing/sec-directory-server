@@ -38,6 +38,12 @@ class LoadFeedTest(TestCase):
   def test_load_feed_people_regex_sec_is_there(self):
     sec_people = filter(lambda person: "SEC" in person.location, FeedPerson.objects.all())
     self.assertTrue(len(list(sec_people)) > 0)
+  
+  def test_load_feed_people_regex_wester_ave_versions_changes(self):
+    western_ave_people = filter(lambda person: "Western Ave " in person.location, FeedPerson.objects.all())
+    western_ave_comma_people = filter(lambda person: "Western Ave," in person.location, FeedPerson.objects.all())
+    self.assertEqual(len(list(western_ave_people)), 0)
+    self.assertEqual(len(list(western_ave_comma_people)), 0)
 
   def test_load_feed_people_removes_original_data(self):
     feed_person = FeedPerson.objects.create(eppn="1a2b3c456def7890", firstname="John", lastname="Harvard", location="Pierce Hall 101", name="John Harvard")

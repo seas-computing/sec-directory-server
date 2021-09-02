@@ -25,7 +25,7 @@ def load_feed_people():
         location = re.sub(r'Sci&Eng', 'SEC', location)
 
         # This allows for multiple spaces between words, and it allows the pattern to be "150 Western Ave", "150 Western Ave.", or "150 Western Avenue".
-        # Also, in case the original string already contains "SEC," we could include "SEC" in the pattern so that the result does not have "SEC" twice
+        # Also, in case the original string already contains "SEC," we include "SEC" in the pattern so that the result does not have "SEC" twice
         # (e.g. "150 Western Ave, SEC, SEC" as the final resulting string)
         location = re.sub(r'\b150\s+Western\s+Ave(?:\.|nue)?(?:,\s*SEC)?', "150 Western Ave. SEC", location, flags=re.IGNORECASE)
 
