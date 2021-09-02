@@ -59,7 +59,7 @@ $ docker pull ghcr.io/seas-computing/sec-directory-server:stable
 $ docker run -it --rm --env-file .env ghcr.io/seas-computing/sec-directory-server:stable
 ```
 
-By default, the production image will run a `gunicorn` process that listens on port 8000.
+When running in production, the `DJANGO_SETTINGS_MODULE` environment variable should be set to `app.settings.production`. By default, the production image will run a `gunicorn` process that listens on port 8000.
 
 There is also a [`docker-compose.prod.yml`](docker-compose.prod.yml) file that runs the container in production mode behind an nginx proxy. This is primarily useful for testing the production settings; our real production deployment will be using AWS Elastic Container Service, Relational Database Service, and Elastic Load Balancer.
 
