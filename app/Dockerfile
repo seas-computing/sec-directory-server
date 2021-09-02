@@ -33,6 +33,7 @@ WORKDIR /usr/src/app
 # Copy in the code and run the app
 COPY ./app .
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+CMD ["--development"]
 
 # BUILD
 # An intermediate stage that installs deps and builds the psychopg2 dependency
