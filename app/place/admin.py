@@ -1,6 +1,5 @@
 from django.contrib import admin
-
+from rollup.utils import load_rollup, UpdateScreens
 from .models import Place
 
-# Register your models here.
-admin.site.register(Place)
+admin.site.register(Place, UpdateScreens)

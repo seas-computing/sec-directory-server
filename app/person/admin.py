@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from rollup.utils import load_rollup, UpdateScreens
 from .models import Person
-# Register your models here.
-admin.site.register(Person)
+
+admin.site.register(Person, UpdateScreens)
