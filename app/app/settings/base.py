@@ -130,8 +130,10 @@ USE_TZ = True
 
 STATIC_ROOT = path.join(BASE_DIR, 'static')
 STATIC_URL = environ.get("STATIC_URL", '/static/')
-MEDIA_ROOT = path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+### MEDIA_ROOT and MEDIA_URL not required for this project as no files are being uploaded by users.
+# MEDIA_ROOT = path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 # Algolia Search Setup
 # https://www.algolia.com/doc/framework-integration/django/setup/?client=python#setup
