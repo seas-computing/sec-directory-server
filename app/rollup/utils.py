@@ -8,17 +8,23 @@ import logging
 
 # Creates updated Rollup objects using Place, Person, and FeedPerson data
 def load_rollup():
+  print('Beginning to load rollup');
   Rollup.objects.all().delete()
   places = Place.objects.all()
   people = Person.objects.all()
   feed_people = FeedPerson.objects.all()
 
+  counter = 0;
   for objects in [places, people, feed_people]:
     for object in objects:
+      print('Adding ' + object.name + ' to Rollup')
+      counter += 1
       Rollup.objects.create(
         name = object.name,
         location = object.location
       )
+  print('Added ' + str(counter) + ' People')
+  print('Done loading rollup')
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -32,9 +38,9 @@ class UpdateScreens(DjangoObjectActions, admin.ModelAdmin):
     except Exception as err:
       logger.exception(err)
       self.message_user(request, 'Error: Unable to update screens. If the problem persists, contact SEAS Computing.', level=messages.ERROR, fail_silently=False)
-    
+
   UpdateScreensButton.label = 'Update screens'
 
   UpdateScreensButton.short_description = 'Manually refresh the screens with the most recent data.'
-        
+
   changelist_actions = ('UpdateScreensButton', )
