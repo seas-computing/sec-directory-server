@@ -139,5 +139,6 @@ STATIC_URL = environ.get("STATIC_URL", '/static/')
 # https://www.algolia.com/doc/framework-integration/django/setup/?client=python#setup
 ALGOLIA = {
     'APPLICATION_ID': environ.get("ALGOLIA_APP_ID"),
-    'API_KEY': environ.get("ALGOLIA_API_KEY")
+    'API_KEY': environ.get("ALGOLIA_API_KEY"),
+    'RAISE_EXCEPTIONS': True,
 }
