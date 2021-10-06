@@ -7,6 +7,8 @@ if [[ "$*" == "--production" ]]; then
   EXEC_MODE=production
 elif [[ "$*" == "--development" ]]; then
   EXEC_MODE=development
+elif [[ "$*" == "--reindex" ]]; then
+  EXEC_MODE=reindex
 fi
 
 if [ "$DATABASE" = "postgres" ]
@@ -23,6 +25,12 @@ fi
 if [[ $EXEC_MODE == exec ]]; then
   echo "Running $@"
   exec "$@"
+elif [[ $EXEC_MODE == reindex ]]; then
+  echo "Reindexing Database"
+  python manage.py shell\
+    --command="from feedperson.utils import load_feed_people;\
+    load_feed_people()"
+  python manage.py algolia_reindex
 else
   python manage.py migrate
   python manage.py createsuperuser --noinput

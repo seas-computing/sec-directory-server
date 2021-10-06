@@ -79,9 +79,9 @@ In addition to serving the administration interface, the Django can also run a f
 $ docker run -it --rm --env-file .env ghcr.io/seas-computing/sec-directory-server:stable python manage.py shell --command "from feedperson.utils import load_feed_people; load_feed_people()"
 ```
 
-When running the container with an additional shell command like this, the [`app/entrypoint.sh` script](app/entrypoint.sh) will not run the `gunicorn` or development server processes; it will run the command specified within the `/app` directory in the container. If the `DATABASE` environment variable is set to `postgres`, it will wait for the database defined by `SQL_HOST` and `SQL_PORT` to become available before proceeding.
+When running the container with an additional shell command like this, the [`app/entrypoint.sh` script](app/entrypoint.sh) will not run the `gunicorn` or development server processes; it will run the command specified, within the `/app` directory in the container. If the `DATABASE` environment variable is set to `postgres`, it will wait for the database defined by `SQL_HOST` and `SQL_PORT` to become available before proceeding.
 
-You can also force the container to run in production or development mode by passing `--production` or `--development` as the **only** arguments. For example:
+You can also force the container to run in production or development mode by passing `--production` or `--development` as the **only** arguments, or you can run the re-indexing process noted above with the `--reindex` flag. For example:
 
 ```sh
 # For Production mode
@@ -89,6 +89,9 @@ $ docker run -it --rm --env-file .env ghcr.io/seas-computing/sec-directory-serve
 
 # For Development mode
 $ docker run -it --rm --env-file .env ghcr.io/seas-computing/sec-directory-server:stable --development
+
+# Shortcut to run the re-indexing command
+$ docker run -it --rm --env-file .env ghcr.io/seas-computing/sec-directory-server:stable --reindex
 ```
 
 With no arguments, the image will default to running in production mode.
