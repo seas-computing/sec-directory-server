@@ -16,6 +16,7 @@ def load_feed_people():
 
   people = soup.findAll('person')
 
+  counter = 0;
   for person in people:
     location = person.location.fordisp.text
     if (re.match('114 Western Ave', location) or re.match('150 Western Ave', location)):
@@ -29,6 +30,7 @@ def load_feed_people():
         # (e.g. "150 Western Ave, SEC, SEC" as the final resulting string)
         location = re.sub(r'\b150\s+Western\s+Ave(?:\.|nue)?(?:,\s*SEC)?', "150 Western Ave. SEC", location, flags=re.IGNORECASE)
 
+      counter += 1
       FeedPerson.objects.create(
         eppn=person.eppn.text,
         firstname=person.givenname.text,
@@ -37,5 +39,5 @@ def load_feed_people():
         location=location
       )
   
+  print('Loaded ' + str(counter) + ' people in Allston')
   load_rollup()
-
