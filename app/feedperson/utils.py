@@ -16,7 +16,7 @@ def load_feed_people():
 
   people = soup.findAll('person')
 
-  counter = 0;
+  counter = 0
   for person in people:
     location = person.location.fordisp.text
     if (re.match('114 Western Ave', location) or re.match('150 Western Ave', location)):
