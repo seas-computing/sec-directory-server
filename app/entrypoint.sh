@@ -11,6 +11,11 @@ elif [[ "$*" == "--reindex" ]]; then
   EXEC_MODE=reindex
 fi
 
+# Default to SERVER_PORT 8000
+if [[ -z "$SERVER_PORT" ]]; then
+  SERVER_PORT=8000
+fi
+
 if [ "$DATABASE" = "postgres" ]
 then
   echo "Waiting for postgres..."
@@ -36,9 +41,9 @@ else
   python manage.py createsuperuser --noinput
   if [[ $EXEC_MODE == development ]]; then
     echo "Starting app in development mode..."
-    python manage.py runserver 0.0.0.0:8000
+    python manage.py runserver 0.0.0.0:$SERVER_PORT
   elif [[ $EXEC_MODE == production ]]; then
     echo "Starting App in production mode..."
-    gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    gunicorn app.wsgi:application --bind 0.0.0.0:$SERVER_PORT
   fi
 fi

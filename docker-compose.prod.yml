@@ -10,13 +10,16 @@ services:
       - static_volume_prod:/home/app/web/app/static
       - media_volume_prod:/home/app/web/app/media
     expose:
-      - 8000
+      - ${SERVER_PORT}
+    ports:
+      - 127.0.0.1:${SERVER_PORT}:${SERVER_PORT}
     env_file:
       - ./.env
     environment:
       DEBUG: 0
       DJANGO_SETTINGS_MODULE: app.settings.production
       SQL_HOST: db_prod
+      SERVER_PORT:
 
   db_prod:
     image: postgres:12.0-alpine
