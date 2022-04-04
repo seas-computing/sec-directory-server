@@ -10,7 +10,9 @@ services:
       - static_volume_prod:/home/app/web/app/static
       - media_volume_prod:/home/app/web/app/media
     expose:
-      - 8000
+      - ${SERVER_PORT}
+    ports:
+      - 127.0.0.1:${SERVER_PORT}:${SERVER_PORT}
     env_file:
       - ./.env
     environment:
