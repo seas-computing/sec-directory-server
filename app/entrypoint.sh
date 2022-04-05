@@ -16,12 +16,18 @@ if [[ -z "$SERVER_PORT" ]]; then
   SERVER_PORT=8000
 fi
 
-if [ "$DATABASE" = "postgres" ]
+# Attempt to connect to the postgres port, bailing after two minutes
+if [[ $DATABASE == postgres ]]
 then
   echo "Waiting for postgres..."
 
+  let COUNT=0
   while ! nc -z $SQL_HOST $SQL_PORT; do
-    sleep 0.1
+    sleep 2
+    let COUNT=$COUNT+1
+    if [[ $COUNT -ge 60 ]]; then
+      exit 1
+    fi
   done
 
   echo "PostgreSQL started"
