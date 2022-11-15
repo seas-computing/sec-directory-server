@@ -2,7 +2,7 @@
 # This layer installs all of the system packages necessary for compiling/installing dependencies
 
 # pull official base image
-FROM python:3.8.0-alpine as base
+FROM python:3.8-alpine as base
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -47,7 +47,7 @@ RUN pip install --prefix=/install -r requirements.txt
 
 # PRODUCTION 
 # Our final image, based off a fresh alpine image
-FROM python:3.8.0-alpine as production
+FROM python:3.8-alpine as production
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
